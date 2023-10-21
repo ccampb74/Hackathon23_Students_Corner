@@ -3,22 +3,18 @@ body {
     font-size: medium;
     background-image:url(https://www.msudenver.edu/wp-content/uploads/2021/06/Campus_Summer_Buildings1304ms_20180621_cc-1-scaled.jpg)
   }
-  
   h1 {
     color: #3498db;
     margin-left: 20px;
   }
-  
   table, th, td {
     border: 1px solid;
     padding: 5px
   }
-  
   th {
     background-color: #3498db;
-    color: white
+    color: rgb(0, 0, 0)
   }
-  
   input[type=submit] {
     background-color: #3498db;
     padding: 10px 20px;
@@ -27,49 +23,37 @@ body {
     cursor: pointer;
     margin: 0 10px;
     border-radius: 5px;
-    color: #fff;
+    color: #ffffff;
   }
-  
-  
-  
   .odd_row {
     background-color: white;
   }
-  
   .even_row {
     background-color: rgb(223, 221, 221);
   }
-  
-  
   img {
     height: 100px;
     width: auto;
   }
-  
-  .img_logo {
-    height: 150px;
-    width: auto;
-  }
-  
   .welcome-stuff {
     text-align: center;
     padding: 20px;
   }
   .welcome-text {
     font-size: 36px;
-    color: #333;
+    color: #000000;
   }
   .subtext {
     font-size: 18px;
     margin-top: 10px;
-    color: #666;
+    color: #686868;
   }
   .button-stuff {
     margin-top: 20px;
   }
   .button {
     background-color: #3498db;
-    color: #fff;
+    color: #ffffff;
     padding: 10px 20px;
     font-size: 18px;
     border: none;
@@ -77,7 +61,6 @@ body {
     margin: 0 10px;
     border-radius: 5px;
   }
-  
   .button_back {
     background-color: #d32a2a;
     color: #fff;
@@ -95,4 +78,11 @@ body {
   .sign-up {
     background-color: #2ecc71;
     color: #fff;
+  }
+  .box {
+    width: 25%;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 15px;
+    margin-top: 25px;
   }

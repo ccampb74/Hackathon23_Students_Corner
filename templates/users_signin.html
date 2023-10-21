@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block main %}
+<div class="d-flex justify-content-center">
+    <div class="box">
+        <div class="welcome-stuff">
+            <p class="subtext">Please choose an option below:</p>
         <form action="" method="POST" novalidate>
             {{ form.hidden_tag() }}
             <p>{{ form.id.label }} <br> {{ form.id(size=15) }}</p>
@@ -11,4 +15,6 @@
                 window.location = target
             }
         </script>
+    </div>
+</div>
 {% endblock %}
