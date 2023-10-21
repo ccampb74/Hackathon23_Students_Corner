@@ -6,7 +6,7 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from app import app, db, load_user
 from app.models import User
-from app.forms import SignUpForm, SignInForm
+from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
@@ -43,7 +43,7 @@ def users_signin():
             if user.id == "admin":
                 return redirect(url_for('front_page_admin'))
             else:
-                return redirect(url_for('front_page'))
+                return redirect(url_for('create_event'))
         else:
             return '<p>Username not recognized!</p>'
     else:
@@ -77,10 +77,13 @@ def users_signup():
 
 
 # sign-out functionality
-@app.route('/users/signout', methods=['GET', 'POST'])
-def users_signout():
-    logout_user()
-    return redirect(url_for('index'))
+@app.route('/users/newevent', methods=['GET', 'POST'])
+@login_required
+def create_event():
+    form= EventCreationForm()
+    if form.validate_on_submit():
+
+        return redirect(url_for('index'))
 
 
 # End of sign in/ sign-up/ sign out 

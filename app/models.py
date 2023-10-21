@@ -6,12 +6,8 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from app import db
 from flask_login import UserMixin
-from sqlalchemy import ForeignKey
-from sqlalchemy import Integer
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey, Integer
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 from datetime import date
 
 
@@ -24,26 +20,33 @@ class User(db.Model, UserMixin):
     reviews= db.relationship("Review")
     events= db.relationship("Event")
 
+class Food(db.Model):
+    __tablename__= 'foods'
+    id = db.Column(db.String, primary_key=True)
+    name = db.Column(db.String)
+    location = db.Column(db.String)
+    events = relationship("Event")
+    reviews = relationship("Review")
+    
 class Event(db.Model):
-    __tablename__= 'event'
+    __tablename__= 'events'
+    food_id = db.Column(db.String, db.ForeignKey("foods.id"))
     id = db.Column(db.String, primary_key=True)
     date = db.Column(db.String)
     desc = db.Column(db.String)
     rsvp = db.Column(db.Integer)
-    food_id = mapped_column(ForeignKey("food.id"))
-    food = relationship("Food", back_populates="events")
-    user_id= db.column
+    user_id= db.Column(db.String, db.ForeignKey("users.id"))
+    user=db.relationship("User", back_populates="events")
+    food= db.relationship("Food")
 
-class Food(db.Model):
-    __tablename__= 'food'
-    id = db.Column(db.String, primary_key=True)
-    name = db.column(db.String)
-    location = db.column(db.String)
-    event_id = mapped_column(ForeignKey("event.id"))
-    events = relationship("Event", back_populates="foods")
+class Review(db.Model):
+    __tablename__= 'reviews'
+    food = db.Column(db.String, db.ForeignKey("foods.id"), primary_key=True)
+    rating = db.Column(db.Integer)
+    comments = db.Column(db.String)
+    user_id= db.Column(db.String, db.ForeignKey("users.id"))
+    user=db.relationship("User")
 
-class Review(db.model):
-    __tablename__= 'review'
 
 
 
