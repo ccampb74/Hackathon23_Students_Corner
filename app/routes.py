@@ -41,9 +41,9 @@ def users_signin():
                 return '<p>Incorrect Password!</p>'
 
             if user.id == "admin":
-                return redirect(url_for('front_page_admin'))
+                return redirect(url_for('home_admin'))
             else:
-                return redirect(url_for('front_page'))
+                return redirect(url_for('home'))
         else:
             return '<p>Username not recognized!</p>'
     else:
@@ -80,7 +80,7 @@ def users_signup():
 @app.route('/users/signout', methods=['GET', 'POST'])
 def users_signout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 
 # End of sign in/ sign-up/ sign out 
@@ -90,9 +90,13 @@ def users_signout():
 ###########################################################################################################
 # Start of user-facing routes
 
+@app.route('/restaurant')
+def testing_restaurants():
+    return render_template('food_place.html')
 
-
-
+@app.route('/home')
+def home():
+    return render_template('home_page.html', user=current_user)
 
 # End of user-facing routes 
 ###########################################################################################################

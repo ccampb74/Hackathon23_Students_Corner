@@ -2,6 +2,7 @@
 {% block main %}
 <div class="d-flex justify-content-center">
     <div class="box">
+        <h1 class="header-text">Sign Up</h1>
         <form action="" method="POST" novalidate>
             {{ form.hidden_tag() }}
             <p>{{ form.id.label }} <br> {{ form.id(size=15) }}</p>
@@ -16,4 +17,6 @@
                 window.location = target
             }
         </script>
+    </div>
+</div>
 {% endblock %}

@@ -61,6 +61,14 @@ body {
     margin: 0 10px;
     border-radius: 5px;
   }
+  .modern-button {
+    background-color: #ffffff00;
+    color: #000000;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin: 0px 10px;
+  }
   .button_back {
     background-color: #d32a2a;
     color: #fff;
@@ -85,4 +93,29 @@ body {
     background-color: #fff;
     border-radius: 15px;
     margin-top: 25px;
+  }
+  .header-text {
+    font-size: 20px;
+    color: #4b4b4b;
+  }
+  .block {
+    width: 48%;
+    height: 919px;
+    background-color: #fff;
+  }
+  h2 {
+    color: #000000;
+    margin-left: 20px;
+  }
+  .restaurant-page {
+    text-align: center;
+  }
+  .restaurant-title {
+    font-size: 32px;
+    color: #000000;
+  }
+  .subtext {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #686868;
   }
