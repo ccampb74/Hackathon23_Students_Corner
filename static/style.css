@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+  }
+  
+  h1 {
+    color: #3498db;
+    margin-left: 20px;
+  }
+  
+  table, th, td {
+    border: 1px solid;
+    padding: 5px
+  }
+  
+  th {
+    background-color: #3498db;
+    color: white
+  }
+  
+  input[type=submit] {
+    background-color: #3498db;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    border-radius: 5px;
+    color: #fff;
+  }
+  
+  
+  
+  .odd_row {
+    background-color: white;
+  }
+  
+  .even_row {
+    background-color: rgb(223, 221, 221);
+  }
+  
+  
+  img {
+    height: 100px;
+    width: auto;
+  }
+  
+  .img_logo {
+    height: 150px;
+    width: auto;
+  }
+  
+  .welcome-stuff {
+    text-align: center;
+    padding: 20px;
+  }
+  .welcome-text {
+    font-size: 36px;
+    color: #333;
+  }
+  .subtext {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #666;
+  }
+  .button-stuff {
+    margin-top: 20px;
+  }
+  .button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    border-radius: 5px;
+  }
+  
+  .button_back {
+    background-color: #d32a2a;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    border-radius: 5px;
+  }
+  .sign-in {
+    background-color: #3498db;
+    color: #fff;
+  }
+  .sign-up {
+    background-color: #2ecc71;
+    color: #fff;
+  }
