@@ -22,3 +22,5 @@ class SignInForm(FlaskForm):
     passwd = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Confirm')
 
+class EventCreationForm(FlaskForm):
+    id = StringField('')
