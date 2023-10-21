@@ -5,8 +5,8 @@ Description: Student-made website for students containing student-crowdsourced i
 '''
 
 from app import app, db, load_user
-from app.models import User
-from app.forms import SignUpForm, SignInForm
+from app.models import User, Event, Review, Food
+from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
@@ -77,10 +77,20 @@ def users_signup():
 
 
 # sign-out functionality
-@app.route('/users/signout', methods=['GET', 'POST'])
-def users_signout():
-    logout_user()
-    return redirect(url_for('index'))
+@app.route('/users/newevent', methods=['GET', 'POST'])
+@login_required
+def create_event():
+    form= EventCreationForm()
+    if form.validate_on_submit():
+        new_event = Event(
+            date = form.date.data,
+            desc = form.desc.data,
+            rsvp = 1,
+            user_id = current_user.id,
+            food_id = '1234'
+        )
+        
+        return render_template('create_event.html', title=app.config['CREATE EVENT'], form=form)
 
 
 # End of sign in/ sign-up/ sign out 

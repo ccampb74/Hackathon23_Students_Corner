@@ -6,6 +6,9 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from app import db
 from flask_login import UserMixin
+from sqlalchemy import ForeignKey, Integer
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
+from datetime import date
 
 
 class User(db.Model, UserMixin):
@@ -14,3 +17,36 @@ class User(db.Model, UserMixin):
     student_id = db.Column(db.String)
     email = db.Column(db.String)
     passwd = db.Column(db.LargeBinary)
+    reviews= db.relationship("Review")
+    events= db.relationship("Event")
+
+class Food(db.Model):
+    __tablename__= 'foods'
+    id = db.Column(db.String, primary_key=True)
+    name = db.Column(db.String)
+    location = db.Column(db.String)
+    events = relationship("Event")
+    reviews = relationship("Review")
+    
+class Event(db.Model):
+    __tablename__= 'events'
+    food_id = db.Column(db.String, db.ForeignKey("foods.id"))
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.String)
+    desc = db.Column(db.String)
+    rsvp = db.Column(db.Integer)
+    user_id= db.Column(db.String, db.ForeignKey("users.id"))
+    user=db.relationship("User", back_populates="events")
+    food= db.relationship("Food")
+
+class Review(db.Model):
+    __tablename__= 'reviews'
+    food = db.Column(db.String, db.ForeignKey("foods.id"), primary_key=True)
+    rating = db.Column(db.Integer)
+    comments = db.Column(db.String)
+    user_id= db.Column(db.String, db.ForeignKey("users.id"))
+    user=db.relationship("User")
+
+
+
+
