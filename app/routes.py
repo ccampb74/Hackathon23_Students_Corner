@@ -16,7 +16,7 @@ import bcrypt
 @app.route('/index')
 @app.route('/index.html')
 def index():
-    return render_template('index.html')
+    return render_template('index.html',user=current_user)
 
 
 ###########################################################################################################
@@ -41,9 +41,9 @@ def users_signin():
                 return '<p>Incorrect Password!</p>'
 
             if user.id == "admin":
-                return redirect(url_for('home_admin'))
+                return redirect(url_for('index_admin'))
             else:
-                return redirect(url_for('home'))
+                return redirect(url_for('index'))
         else:
             return '<p>Username not recognized!</p>'
     else:
@@ -80,7 +80,7 @@ def users_signup():
 @app.route('/users/signout', methods=['GET', 'POST'])
 def users_signout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('index'))
 
 
 # End of sign in/ sign-up/ sign out 
@@ -94,9 +94,6 @@ def users_signout():
 def testing_restaurants():
     return render_template('food_place.html')
 
-@app.route('/home')
-def home():
-    return render_template('home_page.html', user=current_user)
 
 # End of user-facing routes 
 ###########################################################################################################
