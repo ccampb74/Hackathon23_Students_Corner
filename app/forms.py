@@ -11,7 +11,7 @@ from wtforms.validators import DataRequired, Optional
 
 class SignUpForm(FlaskForm):
     id = StringField('Id', validators=[DataRequired()])
-    student_id = StringField('Student ID', validators=[DataRequired()]')
+    student_id = StringField('Student ID', validators=[DataRequired()])
     email = StringField('E-mail', validators=[DataRequired()])
     passwd = PasswordField('Password', validators=[DataRequired()])
     passwd_confirm = PasswordField('Confirm Password', validators=[DataRequired()])
