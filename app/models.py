@@ -12,6 +12,7 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import relationship
+from datetime import date
 
 
 class User(db.Model, UserMixin):
@@ -20,6 +21,8 @@ class User(db.Model, UserMixin):
     student_id = db.Column(db.String)
     email = db.Column(db.String)
     passwd = db.Column(db.LargeBinary)
+    reviews= db.relationship("Review")
+    events= db.relationship("Event")
 
 class Event(db.Model):
     __tablename__= 'event'
@@ -28,7 +31,8 @@ class Event(db.Model):
     desc = db.Column(db.String)
     rsvp = db.Column(db.Integer)
     food_id = mapped_column(ForeignKey("food.id"))
-    foods = relationship("Food", back_populates="events")
+    food = relationship("Food", back_populates="events")
+    user_id= db.column
 
 class Food(db.Model):
     __tablename__= 'food'
@@ -37,6 +41,9 @@ class Food(db.Model):
     location = db.column(db.String)
     event_id = mapped_column(ForeignKey("event.id"))
     events = relationship("Event", back_populates="foods")
+
+class Review(db.model):
+    __tablename__= 'review'
 
 
 
