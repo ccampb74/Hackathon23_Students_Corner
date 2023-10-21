@@ -6,6 +6,12 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from app import db
 from flask_login import UserMixin
+from sqlalchemy import ForeignKey
+from sqlalchemy import Integer
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import relationship
 
 
 class User(db.Model, UserMixin):
@@ -14,3 +20,23 @@ class User(db.Model, UserMixin):
     student_id = db.Column(db.String)
     email = db.Column(db.String)
     passwd = db.Column(db.LargeBinary)
+
+class Event(db.Model):
+    __tablename__= 'event'
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.String)
+    desc = db.Column(db.String)
+    rsvp = db.Column(db.Integer)
+    food_id = mapped_column(ForeignKey("food.id"))
+    foods = relationship("Food", back_populates="events")
+
+class Food(db.Model):
+    __tablename__= 'food'
+    id = db.Column(db.String, primary_key=True)
+    name = db.column(db.String)
+    location = db.column(db.String)
+    event_id = mapped_column(ForeignKey("event.id"))
+    events = relationship("Event", back_populates="foods")
+
+
+
