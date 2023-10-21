@@ -77,6 +77,13 @@ def users_signup():
 
 
 # sign-out functionality
+@app.route('/users/signout', methods=['GET', 'POST'])
+def users_signout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+# new event
 @app.route('/users/newevent', methods=['GET', 'POST'])
 @login_required
 def create_event():
