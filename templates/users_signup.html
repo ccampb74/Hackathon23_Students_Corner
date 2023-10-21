@@ -4,6 +4,7 @@
             {{ form.hidden_tag() }}
             <p>{{ form.id.label }} <br> {{ form.id(size=15) }}</p>
             <p>{{ form.student_id.label }} <br> {{ form.student_id(size=30) }}</p>
+            <p>{{ form.email.label }} <br> {{ form.email(size=30) }}</p>
             <p>{{ form.passwd.label }} <br> {{ form.passwd(size=30) }}</p>
             <p>{{ form.passwd_confirm.label }} <br> {{ form.passwd_confirm(size=30) }}</p>
             <p>{{ form.submit() }} <button type="button" class="button_back" onclick=simple_action("{{ url_for('index') }}")>Back</button></p>

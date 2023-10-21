@@ -64,8 +64,8 @@ def users_signup():
         
         new_user = User(
             id = form.id.data,
-            name = form.name.data,
-            about = form.about.data,
+            student_id = form.student_id.data,
+            email = form.email.data,
             passwd = hashed
         )
         db.session.add(new_user)
@@ -103,10 +103,10 @@ def users_signout():
 
 
 @app.route('/users')
-@login_required     
+#@login_required     
 def list_users(): 
     users = User.query.all()
-    return render_template('resellers_list.html', users=users, user=current_user)
+    return render_template('users.html', users=users, user=current_user)
     
 
 # End of admin-facing routes 
