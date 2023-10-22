@@ -67,3 +67,8 @@ $env:SECRET_KEY= 'secret key'
 ```
 
 ## Contributors
+- Callie Campbell-Perdomo
+- Sam Candaleria
+- Saul Gonzalez
+- Saul's friend
+- Vincent Dufour
