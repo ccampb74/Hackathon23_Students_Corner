@@ -35,8 +35,8 @@ class EventRSVPForm(FlaskForm):
     submit = SubmitField('Confirm')
 
 class ReviewForm(FlaskForm):
-    rating = IntegerField('Rating',validators=[DataRequired(), NumberRange(min=0, max=5, message="Please rate out of 5.")])
-    comments = StringField('Leave a Comment!',validators=[Optional()])
+    rating = IntegerField('Rating (out of 5):',validators=[DataRequired(), NumberRange(min=0, max=5, message="Please rate out of 5.")])
+    comments = StringField('Comment:',validators=[Optional()])
     submit = SubmitField('Confirm')
 
 class FoodCreate(FlaskForm):

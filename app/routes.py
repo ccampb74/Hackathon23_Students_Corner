@@ -102,21 +102,13 @@ def users_signout():
 
 @app.route('/restaurant/<id>', methods=['GET','POST'])
 def restaurant(id):
-    count = 0
-
     foods = Food.query.filter_by(id=id).all()  
     for food in foods:
         food_events = food.events               # this iterates through the restaurant and gets to the events object
         food_reviews = food.reviews
 
-    for i in food_reviews:
-        count += 1
-    print("count", count)
-
     rating = db.session.query(func.avg(Review.rating)).filter_by(food_id=id).all()
-    
     averaged_rating = rating[0]
-    print(averaged_rating, "!!!", "it's a:",type(averaged_rating))
 
     # start of review form inside restaurant page
     form = ReviewForm()
@@ -143,8 +135,7 @@ def restaurant(id):
 
         return redirect(url_for('restaurant',id=id))
     else:
-        print('in else')
-    return render_template('restaurant_page.html',user=current_user,restaurant=foods,events=food_events,reviews=food_reviews,id=id,form=form,averaged_rating=averaged_rating)
+        return render_template('restaurant_page.html',user=current_user,restaurant=foods,events=food_events,reviews=food_reviews,id=id,form=form,averaged_rating=averaged_rating)
 
 
 @app.route('/restaurants', methods=['GET','POST'])
