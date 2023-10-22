@@ -5,7 +5,7 @@ Description: Student-made website for students containing student-crowdsourced i
 '''
 
 from flask_wtf import FlaskForm
-from wtforms import (StringField, IntegerField, PasswordField, BooleanField, SubmitField, Form, FieldList, FormField, SelectField, validators)
+from wtforms import (StringField, IntegerField, PasswordField, BooleanField, SubmitField, Form, FieldList, FormField, SelectField, DateField, validators)
 from wtforms.validators import DataRequired, Optional
 
 
@@ -23,7 +23,7 @@ class SignInForm(FlaskForm):
     submit = SubmitField('Confirm')
 
 class EventCreationForm(FlaskForm):
-    date = StringField("Date",validators=[DataRequired()])
+    date = DateField('Event Date', validators=[DataRequired()])
     desc = StringField("Description of Event",validators=[DataRequired()])
     submit = SubmitField('Confirm')
 

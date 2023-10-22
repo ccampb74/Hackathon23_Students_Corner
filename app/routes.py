@@ -10,13 +10,18 @@ from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, Foo
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
+from datetime import date
 
 
 @app.route('/')
 @app.route('/index')
 @app.route('/index.html')
 def index():
-    return render_template('index.html',user=current_user)
+    todays_date = date.today().strftime('%Y-%m-%d')
+    print (todays_date)
+    five_events= db.session.query(Event).filter(Event.date >= todays_date).limit(5).all()
+    print (five_events)
+    return render_template('index.html',user=current_user, five_events=five_events)
 
 
 ###########################################################################################################
@@ -95,7 +100,8 @@ def users_signout():
 
 @app.route('/restaurant')
 def testing_restaurants():
-    return render_template('food_place.html',user=current_user)
+    restaurants = Food.query.all()
+    return render_template('food_place.html',user=current_user, restaurants=restaurants)
 
 @app.route('/displayreview', methods=['GET'])
 def display_review():
@@ -152,6 +158,9 @@ def create_event():
         return redirect(url_for('list_events'))
     else:   
         return render_template('create_event.html', form=form, user=current_user)
+    
+
+
 
 # End of user-facing routes 
 ###########################################################################################################
