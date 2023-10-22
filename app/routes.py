@@ -19,9 +19,7 @@ from datetime import date
 @app.route('/index.html')
 def index():
     todays_date = date.today().strftime('%Y-%m-%d')
-    print (todays_date)
     list_events= db.session.query(Event).order_by(Event.date).filter(Event.date >= todays_date).limit(5).all()
-    print (list_events)
 
     return render_template('index.html',user=current_user, five_events=list_events)
 
@@ -102,10 +100,15 @@ def users_signout():
 
 @app.route('/restaurant/<id>', methods=['GET','POST'])
 def restaurant(id):
-    foods = Food.query.filter_by(id=id).all()  
-    for food in foods:
-        food_events = food.events               # this iterates through the restaurant and gets to the events object
+    foods = Food.query.filter_by(id=id).all()
+
+
+    for food in foods:             # this iterates through the restaurant and gets to the events object
         food_reviews = food.reviews
+        food_name = food.name
+
+    food_events = Event.query.filter_by(food_id=food_name).all()
+    
 
     rating = db.session.query(func.avg(Review.rating)).filter_by(food_id=id).all()
     averaged_rating = rating[0]
