@@ -63,7 +63,6 @@
                     <th>Event ID</th>
                     <th>Date</th>
                     <th>Info</th>
-                    <th>RSVP</th>
                 </tr>
                 {% for event in events %}
                 {% if loop.index % 2 == 0 %}
@@ -74,9 +73,6 @@
                     <td>{{ event.id }}</td>
                     <td>{{ event.date }}</td>
                     <td>{{ event.desc }}</td>
-                    <td>
-                        <button type="button" class="button" onclick=simple_action("{{ url_for('event_page', id=event.id) }}")>Go To Event</button>
-                    </td>
   
                 </tr>
                 {% endfor %}
@@ -86,7 +82,6 @@
 
         </div>
     </div>
-
 </div>
 
 
