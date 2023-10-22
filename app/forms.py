@@ -31,3 +31,15 @@ class ReviewForm(FlaskForm):
     rating = IntegerField('Rating',validators=[DataRequired()])
     comments = StringField('Leave a Comment!',validators=[Optional()])
     submit = SubmitField('Confirm')
+
+class FoodCreate(FlaskForm):
+    id = IntegerField('Unique ID',validators=[DataRequired()])
+    name = StringField('Restaurant Name',validators=[DataRequired()])
+    location = StringField('Location',validators=[DataRequired()])
+    submit = SubmitField('Create New Restaurant')
+
+class FoodEdit(FlaskForm):
+    id = IntegerField('Unique ID',validators=[DataRequired()])
+    name = StringField('Restaurant Name',validators=[DataRequired()])
+    location = StringField('Location',validators=[DataRequired()])
+    submit = SubmitField('Confirm Changes')
