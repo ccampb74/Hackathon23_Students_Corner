@@ -6,9 +6,9 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from app import db
 from flask_login import UserMixin
-from sqlalchemy import ForeignKey, Integer
+from sqlalchemy import ForeignKey, Integer, Cast
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
-from datetime import date
+from datetime import datetime, date
 
 
 class User(db.Model, UserMixin):
