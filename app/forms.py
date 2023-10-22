@@ -35,10 +35,12 @@ class FoodCreate(FlaskForm):
     id = IntegerField('Unique ID',validators=[DataRequired()])
     name = StringField('Restaurant Name',validators=[DataRequired()])
     location = StringField('Location',validators=[DataRequired()])
+    image = StringField('Image',validators=[Optional()])
     submit = SubmitField('Create New Restaurant')
 
 class FoodEdit(FlaskForm):
     id = IntegerField('Unique ID',validators=[DataRequired()])
     name = StringField('Restaurant Name',validators=[DataRequired()])
     location = StringField('Location',validators=[DataRequired()])
+    image = StringField('Image',validators=[Optional()])
     submit = SubmitField('Confirm Changes')

@@ -119,7 +119,7 @@ def testing_restaurants():
 # Start of admin-facing routes
 
 # admin home page
-@app.route('/indexadmin')
+@app.route('/indexadmin', methods=['GET', 'POST'])
 def index_admin():
     foods = Food.query.all()
     return render_template('index_admin.html', user=current_user, foods=foods)
@@ -135,6 +135,7 @@ def restaurant_create():
             id=form.id.data,
             name=form.name.data,
             location=form.location.data,
+            image=form.image.data
         )
 
         db.session.add(new_restaurant)
@@ -176,7 +177,7 @@ def restaurant_delete(id):
 #@login_required     
 def list_users(): 
     users = User.query.all()
-    return render_template('users.html', users=users,user=current_user)
+    return render_template('users.html',users=users,user=current_user)
     
 
 # End of admin-facing routes 

@@ -25,6 +25,7 @@ class Food(db.Model):
     id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String)
     location = db.Column(db.String)
+    image = db.Column(db.String)
     events = relationship("Event")
     reviews = relationship("Review")
     
