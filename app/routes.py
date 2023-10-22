@@ -6,7 +6,7 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from app import app, db, load_user
 from app.models import User, Event, Review, Food
-from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, FoodCreate, FoodEdit
+from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, FoodCreate, FoodEdit, EventRSVPForm
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
@@ -100,10 +100,13 @@ def users_signout():
 ###########################################################################################################
 # Start of user-facing routes
 
-@app.route('/restaurant')
-def restaurant():
-    show_restaurant = Food.query.all()
-    return render_template('restaurant_page.html',user=current_user, restaurants=show_restaurant)
+@app.route('/restaurant/<id>', methods=['GET','POST'])
+@login_required
+def restaurant(id):
+    foods = Food.query.filter_by(id=id).all()  
+    for food in foods:
+        food_events = food.events               # this iterates through the restaurant and gets to the events object
+    return render_template('restaurant_page.html',user=current_user,restaurant=foods,events=food_events,id=id)
 
 @app.route('/displayreview', methods=['GET','POST'])
 def display_review():
@@ -158,7 +161,7 @@ def create_event():
             desc = form.desc.data,
             rsvp = 1,
             user_id = current_user.id,
-            food_id = '1111'
+            food_id = '1'
         )
 
         db.session.add(new_event)
@@ -169,7 +172,12 @@ def create_event():
         return render_template('create_event.html', form=form, user=current_user)
     
 
-
+# event specific page
+@app.route('/event/new_rsvp/<id>')
+@login_required
+def event_page(id):
+    event = Event.query.filter_by(id=id).all()  
+    return render_template('event_page.html',user=current_user,events=event)
 
 # End of user-facing routes 
 ###########################################################################################################
