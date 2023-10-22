@@ -93,7 +93,9 @@ def create_event():
                 newid = 1
         else:
                 last_event = db.session.query(Event).order_by(Event.id.desc()).first()
+                print ("aaaaa", last_event)
                 newid = int(last_event.id) + 1
+                print ("blah", newid)
 
         new_event = Event(
             id= newid,
@@ -154,7 +156,7 @@ def restaurant_create():
 
         return redirect(url_for('index_admin'))
     else:
-        return render_template('restaurant_create.html',form=form,user=current_user)
+        return render_template('restaurant_create.html',form=form, user=current_user)
     
 # restaurant edit
 @app.route('/indexadmin/restaurant/<id>/edit', methods=['GET', 'POST'])
@@ -194,7 +196,7 @@ def list_users():
 #@login_required     
 def list_events(): 
     events= Event.query.filter_by(food_id='1111').all()
-    return render_template('events.html', events=events)
+    return render_template('events.html', events=events, user=current_user)
     
 
 # End of admin-facing routes 
