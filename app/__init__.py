@@ -11,6 +11,10 @@ app = Flask("Student Corner")
 app.secret_key = os.environ['SECRET_KEY']='secret key'
 app.config['USER SIGNUP'] = 'User Sign Up'
 app.config['USER SIGNIN'] = 'User Sign In'
+app.config['FOOD'] = [
+    {'id':'1234','name':'we chef','location':'somewfuckwhere'},
+    {'id':'1111','name':'we chef 2','location':'joe mama'}
+]
 
 # db initialization
 from flask_sqlalchemy import SQLAlchemy

@@ -31,13 +31,13 @@ class Food(db.Model):
 class Event(db.Model):
     __tablename__= 'events'
     food_id = db.Column(db.String, db.ForeignKey("foods.id"))
-    id = db.Column(db.String, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String)
     desc = db.Column(db.String)
     rsvp = db.Column(db.Integer)
     user_id= db.Column(db.String, db.ForeignKey("users.id"))
     user=db.relationship("User", back_populates="events")
-    food= db.relationship("Food")
+    food_= db.relationship("Food")
 
 class Review(db.Model):
     __tablename__= 'reviews'
@@ -45,7 +45,7 @@ class Review(db.Model):
     rating = db.Column(db.Integer)
     comments = db.Column(db.String)
     user_id= db.Column(db.String, db.ForeignKey("users.id"))
-    user=db.relationship("User")
+    user_=db.relationship("User")
 
 
 
