@@ -42,11 +42,13 @@ class Event(db.Model):
 
 class Review(db.Model):
     __tablename__= 'reviews'
-    food = db.Column(db.String, db.ForeignKey("foods.id"), primary_key=True)
+    food_id = db.Column(db.String, db.ForeignKey("foods.id"))
+    id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer)
     comments = db.Column(db.String)
     user_id= db.Column(db.String, db.ForeignKey("users.id"))
-    user_=db.relationship("User")
+    user=db.relationship("User",back_populates="reviews")
+    food_= db.relationship("Food")
 
 
 
