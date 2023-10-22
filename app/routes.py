@@ -10,7 +10,7 @@ from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, Foo
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
-from sqlalchemy import cast, Integer
+from sqlalchemy import cast, Integer, desc, asc
 from datetime import date
 
 
@@ -18,13 +18,12 @@ from datetime import date
 @app.route('/index')
 @app.route('/index.html')
 def index():
-    todays_date = date.today().strftime('%Y%m%d')
+    todays_date = date.today().strftime('%Y-%m-%d')
     print (todays_date)
-    date_int = int(todays_date)
-    print (date_int)
-    five_events= db.session.query(Event).filter(Event.date >= todays_date).limit(5).all()
-    print (five_events)
-    return render_template('index.html',user=current_user, five_events=five_events)
+    list_events= db.session.query(Event).order_by(Event.date).filter(Event.date >= todays_date).limit(5).all()
+    print (list_events)
+
+    return render_template('index.html',user=current_user, five_events=list_events)
 
 
 ###########################################################################################################
@@ -103,7 +102,8 @@ def users_signout():
 
 @app.route('/restaurant')
 def restaurant():
-    return render_template('restaurant_page.html',user=current_user)
+    show_restaurant = Food.query.all()
+    return render_template('restaurant_page.html',user=current_user, restaurants=show_restaurant)
 
 @app.route('/displayreview', methods=['GET','POST'])
 def display_review():
