@@ -190,9 +190,15 @@ def create_event():
 # event specific page
 @app.route('/event/<id>')
 def event_page(id):
-    event = Event.query.filter_by(id=id).all()
-    return render_template('event_page.html',user=current_user,events=event)
-
+    events = Event.query.filter_by(id=id).all()  
+    for event in events:
+        event_food = event.food_id
+        rest = Food.query.filter_by(id=event_food).one()
+        restaurant=rest.name
+        print (event_food)
+        event_user = event.user_id
+        print (event_user)              # this iterates through the restaurant and gets to the events object
+    return render_template('event_page.html',user=current_user,events=events, eventfood=restaurant, eventuser=event_user,id=id)
 # End of user-facing routes 
 ###########################################################################################################
 
@@ -264,7 +270,7 @@ def list_users():
 @app.route('/events')
 #@login_required     
 def list_events(): 
-    events= Event.query.filter_by(food_id='1111').all()
+    events= Event.query.all()
     return render_template('events.html', events=events, user=current_user)
     
 
