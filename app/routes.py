@@ -94,8 +94,8 @@ def users_signout():
 # Start of user-facing routes
 
 @app.route('/restaurant')
-def testing_restaurants():
-    return render_template('food_place.html',user=current_user)
+def restaurant():
+    return render_template('restaurant_page.html',user=current_user)
 
 @app.route('/displayreview', methods=['GET','POST'])
 def display_review():
@@ -107,7 +107,6 @@ def display_review():
 @app.route('/testreview', methods=['GET', 'POST'])
 def review():
     form = ReviewForm()
-
     if form.validate_on_submit():
         if not db.session.query(Review).order_by(Review.id.desc()).first():
                 newid = 1
@@ -129,7 +128,7 @@ def review():
         return redirect(url_for('display_review'))
     else:
         print('in else')
-        return render_template('testreview.html', form=form, user=current_user) 
+        return render_template('testreview.html', form=form, user=current_user)
     
 # new event
 @app.route('/users/newevent', methods=['GET', 'POST'])
