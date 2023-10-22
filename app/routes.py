@@ -10,6 +10,7 @@ from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, Foo
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
+from sqlalchemy import cast, Integer
 from datetime import date
 
 
@@ -17,9 +18,11 @@ from datetime import date
 @app.route('/index')
 @app.route('/index.html')
 def index():
-    todays_date = date.today().strftime('%Y-%m-%d')
+    todays_date = date.today().strftime('%Y%m%d')
     print (todays_date)
-    five_events= db.session.query(Event).filter(Event.date >= todays_date).limit(5).all()
+    date_int = int(todays_date)
+    print (date_int)
+    five_events= db.session.query(Event).filter(cast((Event.date).replace("-",""), Integer) >= todays_date).limit(5).all()
     print (five_events)
     return render_template('index.html',user=current_user, five_events=five_events)
 
