@@ -22,7 +22,7 @@ def index():
     print (todays_date)
     date_int = int(todays_date)
     print (date_int)
-    five_events= db.session.query(Event).filter(cast((Event.date).replace("-",""), Integer) >= todays_date).limit(5).all()
+    five_events= db.session.query(Event).filter(Event.date >= todays_date).limit(5).all()
     print (five_events)
     return render_template('index.html',user=current_user, five_events=five_events)
 
