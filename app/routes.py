@@ -22,8 +22,9 @@ def index():
     list_events= db.session.query(Event).order_by(Event.date).filter(Event.date >= todays_date).limit(5).all()
 
     list_reviews = db.session.query(Review).order_by(Review.date.desc()).limit(5).all()
+    foods = Food.query.all()
 
-    return render_template('index.html',user=current_user, five_events=list_events, five_reviews= list_reviews)
+    return render_template('index.html',user=current_user, five_events=list_events, five_reviews= list_reviews,restaurants=foods)
 
 
 ###########################################################################################################
