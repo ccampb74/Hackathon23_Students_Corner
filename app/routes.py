@@ -10,7 +10,7 @@ from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, Foo
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
-from sqlalchemy import cast, Integer, desc, asc
+from sqlalchemy import cast, Integer, desc, asc, func
 from datetime import date
 
 
@@ -108,6 +108,12 @@ def restaurant(id):
         food_events = food.events               # this iterates through the restaurant and gets to the events object
     return render_template('restaurant_page.html',user=current_user,restaurant=foods,events=food_events,id=id)
 
+@app.route('/restaurants', methods=['GET','POST'])
+@login_required
+def restaurants():
+    restaurants = Food.query.all()  
+    return render_template('all_restaurants.html',user=current_user,restaurants=restaurants,id=id)
+
 @app.route('/displayreview', methods=['GET','POST'])
 def display_review():
     show_review = Review.query.all()
@@ -132,7 +138,6 @@ def review():
                     comments=form.comments.data,
                     user_id =current_user.id
                 )
-        
         db.session.add(test_review)
         db.session.commit()
 
@@ -176,9 +181,15 @@ def create_event():
 @app.route('/event/new_rsvp/<id>')
 @login_required
 def event_page(id):
-    event = Event.query.filter_by(id=id).all()  
-    return render_template('event_page.html',user=current_user,events=event)
-
+    events = Event.query.filter_by(id=id).all()  
+    for event in events:
+        event_food = event.food_id
+        rest = Food.query.filter_by(id=event_food).one()
+        restaurant=rest.name
+        print (event_food)
+        event_user = event.user_id
+        print (event_user)              # this iterates through the restaurant and gets to the events object
+    return render_template('event_page.html',user=current_user,events=events, eventfood=restaurant, eventuser=event_user,id=id)
 # End of user-facing routes 
 ###########################################################################################################
 
@@ -250,7 +261,7 @@ def list_users():
 @app.route('/events')
 #@login_required     
 def list_events(): 
-    events= Event.query.filter_by(food_id='1111').all()
+    events= Event.query.all()
     return render_template('events.html', events=events, user=current_user)
     
 
