@@ -4,21 +4,22 @@
     <div class="box">
         <table>
         <tr>
+            <th>Image</th>
             <th>Id</th>
             <th>Name</th>
             <th>Location</th>
-            
         </tr>
-        {% for food in restaurants %}
+
+        {% for rest in restaurant %}
         {% if loop.index % 2 == 0 %}
         <tr class="even_row">
             {% else %}
         <tr class="odd_row">
             {% endif %}
-            <td><img src="{{ food.image }}"></td>
-            <td>{{ food.id }}</td>
-            <td>{{ food.name }}</td>
-            <td>{{ food.location }}</td>
+            <td><img src="{{ rest.image }}"></td>
+            <td>{{ rest.id }}</td>
+            <td>{{ rest.name }}</td>
+            <td>{{ rest.location }}</td>
         </tr>
         {% endfor %}
 

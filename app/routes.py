@@ -98,9 +98,16 @@ def users_signout():
 ###########################################################################################################
 # Start of user-facing routes
 
-@app.route('/restaurant')
-def restaurant():
-    return render_template('restaurant_page.html',user=current_user)
+@app.route('/restaurant/<id>', methods=['GET','POST'])
+@login_required
+def restaurant(id):
+    # foods = db.session.query(Food).get(id)
+    # print(foods.location, "!!!!!!!!!!")
+
+    foods = Food.query.all()
+
+    
+    return render_template('restaurant_page.html',user=current_user,restaurant=foods)
 
 @app.route('/displayreview', methods=['GET','POST'])
 def display_review():
