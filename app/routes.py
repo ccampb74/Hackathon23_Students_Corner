@@ -113,13 +113,10 @@ def restaurant(id):
         count += 1
     print("count", count)
 
-
-
     rating = db.session.query(func.avg(Review.rating)).filter_by(food_id=id).all()
     
     averaged_rating = rating[0]
     print(averaged_rating, "!!!", "it's a:",type(averaged_rating))
-
 
     # start of review form inside restaurant page
     form = ReviewForm()
@@ -148,6 +145,12 @@ def restaurant(id):
     else:
         print('in else')
     return render_template('restaurant_page.html',user=current_user,restaurant=foods,events=food_events,reviews=food_reviews,id=id,form=form,averaged_rating=averaged_rating)
+
+
+@app.route('/restaurants', methods=['GET','POST'])
+def restaurants():
+    restaurants = Food.query.all()  
+    return render_template('all_restaurants.html',user=current_user,restaurants=restaurants,id=id)
 
 
 @app.route('/displayreview', methods=['GET','POST'])
