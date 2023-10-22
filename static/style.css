@@ -65,6 +65,16 @@ body {
     margin: 0 10px;
     border-radius: 5px;
   }
+  .button-events {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 10px 60px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin: 20px;
+    border-radius: 5px;
+  }
   .modern-button {
     background-color: #ffffff00;
     color: #000000;
@@ -93,6 +103,13 @@ body {
   }
   .box {
     width: 25%;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 15px;
+    margin-top: 25px;
+  }
+  .box-admin {
+    width: 65%;
     padding: 40px;
     background-color: #fff;
     border-radius: 15px;
