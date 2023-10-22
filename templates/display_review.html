@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block main %}
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>ID</th>
+            <th>Restaurant</th>
+            <th>Ratings</th>
+            <th>Comments</th>
+        </tr>
+        {% for review in show %}
+            {% if loop.index % 2 == 0 %}
+                <tr class="even_row">
+            {% else %}
+                <tr class="odd_row">
+            {% endif %}
+                    <td>{{ review.date }}</td>
+                    <td>{{ review.id }}</td>
+                    <td>{{ review.food_id }}</td>
+                    <td>{{ review.rating }}</td>
+                    <td>{{ review.commments }}</td>
+                </tr>
+        {% endfor %}
+    </table>
+    <p />
+    <button type="button" class="button" onclick=simple_action("{{ url_for('users_signout') }}")>Sign Out</button>
+    <script type="text/javascript">
+        function simple_action(target) {
+            window.location = target
+        }
+    </script>
+{% endblock %}

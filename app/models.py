@@ -6,13 +6,9 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from app import db
 from flask_login import UserMixin
-from sqlalchemy import ForeignKey
-from sqlalchemy import Integer
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import relationship
-from datetime import date
+from sqlalchemy import ForeignKey, Integer, Cast
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
+from datetime import datetime, date
 
 
 class User(db.Model, UserMixin):
@@ -24,26 +20,36 @@ class User(db.Model, UserMixin):
     reviews= db.relationship("Review")
     events= db.relationship("Event")
 
-class Event(db.Model):
-    __tablename__= 'event'
+class Food(db.Model):
+    __tablename__= 'foods'
     id = db.Column(db.String, primary_key=True)
+    name = db.Column(db.String)
+    location = db.Column(db.String)
+    image = db.Column(db.String)
+    events = relationship("Event")
+    reviews = relationship("Review")
+    
+class Event(db.Model):
+    __tablename__= 'events'
+    food_id = db.Column(db.String, db.ForeignKey("foods.id"))
+    id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String)
     desc = db.Column(db.String)
-    rsvp = db.Column(db.Integer)
-    food_id = mapped_column(ForeignKey("food.id"))
-    food = relationship("Food", back_populates="events")
-    user_id= db.column
+    user_id= db.Column(db.String, db.ForeignKey("users.id"))
+    user=db.relationship("User", back_populates="events")
+    food_= db.relationship("Food")
 
-class Food(db.Model):
-    __tablename__= 'food'
-    id = db.Column(db.String, primary_key=True)
-    name = db.column(db.String)
-    location = db.column(db.String)
-    event_id = mapped_column(ForeignKey("event.id"))
-    events = relationship("Event", back_populates="foods")
+class Review(db.Model):
+    __tablename__= 'reviews'
+    date = db.Column(db.String)
+    food_id = db.Column(db.String, db.ForeignKey("foods.id"))
+    id = db.Column(db.Integer, primary_key=True)
+    rating = db.Column(db.Integer)
+    comments = db.Column(db.String)
+    user_id= db.Column(db.String, db.ForeignKey("users.id"))
+    user=db.relationship("User",back_populates="reviews")
+    food_= db.relationship("Food")
 
-class Review(db.model):
-    __tablename__= 'review'
 
 
 

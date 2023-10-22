@@ -5,8 +5,8 @@ Description: Student-made website for students containing student-crowdsourced i
 '''
 
 from flask_wtf import FlaskForm
-from wtforms import (StringField, IntegerField, PasswordField, BooleanField, SubmitField, Form, FieldList, FormField, SelectField, validators)
-from wtforms.validators import DataRequired, Optional
+from wtforms import (StringField, IntegerField, PasswordField, BooleanField, SubmitField, Form, FieldList, FormField, SelectField, DateField, validators)
+from wtforms.validators import DataRequired, Optional, NumberRange
 
 
 class SignUpForm(FlaskForm):
@@ -23,4 +23,26 @@ class SignInForm(FlaskForm):
     submit = SubmitField('Confirm')
 
 class EventCreationForm(FlaskForm):
-    id = StringField('')
+    date = DateField('Event Date', validators=[DataRequired()])
+    desc = StringField("Description of Event",validators=[DataRequired()])
+    food_id = StringField('Restaurant',validators=[DataRequired()])
+    submit = SubmitField('Confirm')
+
+class ReviewForm(FlaskForm):
+    rating = IntegerField('Rating (out of 5):',validators=[DataRequired(), NumberRange(min=0, max=5, message="Please rate out of 5.")])
+    comments = StringField('Comment:',validators=[Optional()])
+    submit = SubmitField('Confirm')
+
+class FoodCreate(FlaskForm):
+    id = IntegerField('Unique ID',validators=[DataRequired()])
+    name = StringField('Restaurant Name',validators=[DataRequired()])
+    location = StringField('Location',validators=[DataRequired()])
+    image = StringField('Image',validators=[Optional()])
+    submit = SubmitField('Create New Restaurant')
+
+class FoodEdit(FlaskForm):
+    id = IntegerField('Unique ID',validators=[DataRequired()])
+    name = StringField('Restaurant Name',validators=[DataRequired()])
+    location = StringField('Location',validators=[DataRequired()])
+    image = StringField('Image',validators=[Optional()])
+    submit = SubmitField('Confirm Changes')

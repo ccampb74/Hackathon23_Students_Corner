@@ -2,27 +2,30 @@
 {% block main %}
 <div class="d-flex justify-content-center">
     <div class="box">
+        <h6>Events</h6>
         <table>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>E-Mail</th>
-        </tr>
-        {% for user in users %}
+            <tr>
+                <th>Restaurant:</th>
+                <th>Date</th>
+                <th>Desc</th>
+                <th>ID</th>
+                
+            </tr>
+        {% for event in events %}
         {% if loop.index % 2 == 0 %}
         <tr class="even_row">
             {% else %}
         <tr class="odd_row">
             {% endif %}
-            <td>{{ user.id }}</td>
-            <td>{{ user.student_id }}</td>
-            <td>{{ user.email }}</td>
+            <td>{{ event.food_id }}</td>
+            <td>{{ event.desc }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.id }}</td>
         </tr>
         {% endfor %}
 
         </table>
         <br/>
-        <button type="button" class="button" onclick=simple_action("{{ url_for('users_signout') }}")>Sign Out</button>
     </div>
 </div>
 

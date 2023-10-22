@@ -3,22 +3,18 @@ body {
     font-size: medium;
     background-image:url(https://www.msudenver.edu/wp-content/uploads/2021/06/Campus_Summer_Buildings1304ms_20180621_cc-1-scaled.jpg)
   }
-  
   h1 {
     color: #3498db;
     margin-left: 20px;
   }
-  
   table, th, td {
     border: 1px solid;
     padding: 5px
   }
-  
   th {
     background-color: #3498db;
-    color: white
+    color: rgb(0, 0, 0)
   }
-  
   input[type=submit] {
     background-color: #3498db;
     padding: 10px 20px;
@@ -27,49 +23,41 @@ body {
     cursor: pointer;
     margin: 0 10px;
     border-radius: 5px;
-    color: #fff;
+    color: #ffffff;
   }
-  
-  
-  
   .odd_row {
     background-color: white;
   }
-  
   .even_row {
     background-color: rgb(223, 221, 221);
   }
-  
-  
   img {
     height: 100px;
     width: auto;
   }
-  
-  .img_logo {
-    height: 150px;
+  .img-restaurant {
+    height:375px;
     width: auto;
   }
-  
   .welcome-stuff {
     text-align: center;
     padding: 20px;
   }
   .welcome-text {
     font-size: 36px;
-    color: #333;
+    color: #000000;
   }
   .subtext {
     font-size: 18px;
     margin-top: 10px;
-    color: #666;
+    color: #686868;
   }
   .button-stuff {
     margin-top: 20px;
   }
   .button {
     background-color: #3498db;
-    color: #fff;
+    color: #ffffff;
     padding: 10px 20px;
     font-size: 18px;
     border: none;
@@ -77,7 +65,24 @@ body {
     margin: 0 10px;
     border-radius: 5px;
   }
-  
+  .button-events {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 10px 60px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin: 20px;
+    border-radius: 5px;
+  }
+  .modern-button {
+    background-color: #ffffff00;
+    color: #000000;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin: 0px 10px;
+  }
   .button_back {
     background-color: #d32a2a;
     color: #fff;
@@ -95,4 +100,85 @@ body {
   .sign-up {
     background-color: #2ecc71;
     color: #fff;
+  }
+  .box {
+    width: 25%;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 15px;
+    margin-top: 25px;
+  }
+  .box-admin {
+    width: 65%;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 15px;
+    margin-top: 25px;
+  }
+  .bottom-box {
+    width: 25%;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 15px;
+    margin-top: 100px;
+  }
+.event-box {
+  width: 100%;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  margin-top: 50px;
+  margin-right: -25%;
+  height: 50%;
+}
+
+  .header-text {
+    font-size: 20px;
+    color: #4b4b4b;
+  }
+  .block {
+    width: 48%;
+    padding: 40px;
+    height: 1000%;
+    background-color: #fff;
+  }
+  h2 {
+    color: #000000;
+    margin-left: 20px;
+  }
+  h3 {
+    color: #fff;
+  }
+  h4 {
+    color: #000000;
+    font-size: 20px;
+  }
+  h5 {
+    color: #000;
+    font-size: 60px;
+    text-align: center;
+  }
+  h6 {
+    color:#000;
+    font-size:30px;
+  }
+  h7 {
+    color:#000;
+    font-size: 20px;
+  }
+  .restaurant-page {
+    text-align: center;
+  }
+  .restaurant-title {
+    font-size: 32px;
+    color: #000000;
+  }
+  .subtext {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #686868;
+  }
+  img {
+    width: auto;
+    height: 100px;
   }
