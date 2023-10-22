@@ -10,7 +10,7 @@ from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, Foo
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
-from sqlalchemy import cast, Integer, desc, asc
+from sqlalchemy import cast, Integer, desc, asc, func
 from datetime import date
 
 
@@ -101,45 +101,60 @@ def users_signout():
 # Start of user-facing routes
 
 @app.route('/restaurant/<id>', methods=['GET','POST'])
-@login_required
 def restaurant(id):
+    count = 0
+
     foods = Food.query.filter_by(id=id).all()  
     for food in foods:
         food_events = food.events               # this iterates through the restaurant and gets to the events object
-    return render_template('restaurant_page.html',user=current_user,restaurant=foods,events=food_events,id=id)
+        food_reviews = food.reviews
 
-@app.route('/displayreview', methods=['GET','POST'])
-def display_review():
-    show_review = Review.query.all()
-    print("show review!!!!!!!!1",show_review)
-    return render_template('display_review.html',show=show_review,user=current_user)
+    for i in food_reviews:
+        count += 1
+    print("count", count)
 
 
-@app.route('/testreview', methods=['GET', 'POST'])
-def review():
+
+    rating = db.session.query(func.avg(Review.rating)).filter_by(food_id=id).all()
+    
+    averaged_rating = rating[0]
+    print(averaged_rating, "!!!", "it's a:",type(averaged_rating))
+
+
+    # start of review form inside restaurant page
     form = ReviewForm()
     if form.validate_on_submit():
+        todays_date = date.today().strftime('%Y-%m-%d')
+
         if not db.session.query(Review).order_by(Review.id.desc()).first():
                 newid = 1
         else:
                 last_review = db.session.query(Review).order_by(Review.id.desc()).first()
                 newid = int(last_review.id) + 1
 
-        test_review = Review(
+        review = Review(
+                    date = todays_date,
                     id = newid,
-                    food_id = 'test restaurant',
+                    food_id = id,
                     rating=form.rating.data,
                     comments=form.comments.data,
                     user_id =current_user.id
                 )
-        
-        db.session.add(test_review)
+
+        db.session.add(review)
         db.session.commit()
 
-        return redirect(url_for('display_review'))
+        return redirect(url_for('restaurant',id=id))
     else:
         print('in else')
-        return render_template('testreview.html', form=form, user=current_user)
+    return render_template('restaurant_page.html',user=current_user,restaurant=foods,events=food_events,reviews=food_reviews,id=id,form=form,averaged_rating=averaged_rating)
+
+
+@app.route('/displayreview', methods=['GET','POST'])
+def display_review():
+    show_review = Review.query.all()
+    return render_template('display_review.html',show=show_review,user=current_user)
+
     
 # new event
 @app.route('/users/newevent', methods=['GET', 'POST'])
@@ -173,10 +188,9 @@ def create_event():
     
 
 # event specific page
-@app.route('/event/new_rsvp/<id>')
-@login_required
+@app.route('/event/<id>')
 def event_page(id):
-    event = Event.query.filter_by(id=id).all()  
+    event = Event.query.filter_by(id=id).all()
     return render_template('event_page.html',user=current_user,events=event)
 
 # End of user-facing routes 

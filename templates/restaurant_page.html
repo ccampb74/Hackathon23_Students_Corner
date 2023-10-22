@@ -2,28 +2,53 @@
 {% block main %}
 <div class="d-flex justify-content-center">
     <div class="block">
-        <h4>{{ restaurant.name}} </h4>
-        <table>
-        <tr>
-            <th>Image</th>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Location</th>
-        </tr>
         {% for rest in restaurant %}
-        {% if loop.index % 2 == 0 %}
-        <tr class="even_row">
+        <h5> {{ rest.name }} </h5>
+        <img class="img-restaurant" src="{{ rest.image }}">
+        <p>---------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+        
+        <h6>Average Rating:</h6>{{ averaged_rating }}/5.0
+        
+        <p>---------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+
+        <h6>Location:</h6><h4>{{ rest.location }}</h4>
+        
+        <p>---------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+        {% if user.id|length %}
+                <h3>Please leave a rating!</h3>
+                <form action="" method="POST" novalidate>
+                    {{ form.hidden_tag() }}
+                    <p>{{ form.rating.label }}  {{ form.rating(size=10) }} {{ form.comments.label }} {{ form.comments(size=50) }}</p>
+                    <p> {{ form.submit() }}</p>
+                </form>
             {% else %}
-        <tr class="odd_row">
-            {% endif %}
-            <td><img src="{{ rest.image }}"></td>
-            <td>{{ rest.id }}</td>
-            <td>{{ rest.name }}</td>
-            <td>{{ rest.location }}</td>
-        </tr>
+                <p>Please sign in to leave a review.</p>
+        {% endif %}
+
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Rating</th>
+                <th>Comment</th>
+            </tr>
+            {% for review in rest.reviews %}
+            {% if loop.index % 2 == 0 %}
+            <tr class="even_row">
+                {% else %}
+            <tr class="odd_row">
+                {% endif %}
+                <td>{{ review.user_id }}</td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.comments }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        </table>
         {% endfor %}
 
-        </table>
+
+        
         <br/>
     </div>
 

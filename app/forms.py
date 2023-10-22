@@ -6,7 +6,7 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from flask_wtf import FlaskForm
 from wtforms import (StringField, IntegerField, PasswordField, BooleanField, SubmitField, Form, FieldList, FormField, SelectField, DateField, validators)
-from wtforms.validators import DataRequired, Optional
+from wtforms.validators import DataRequired, Optional, NumberRange
 
 
 class SignUpForm(FlaskForm):
@@ -35,7 +35,7 @@ class EventRSVPForm(FlaskForm):
     submit = SubmitField('Confirm')
 
 class ReviewForm(FlaskForm):
-    rating = IntegerField('Rating',validators=[DataRequired()])
+    rating = IntegerField('Rating',validators=[DataRequired(), NumberRange(min=0, max=5, message="Please rate out of 5.")])
     comments = StringField('Leave a Comment!',validators=[Optional()])
     submit = SubmitField('Confirm')
 

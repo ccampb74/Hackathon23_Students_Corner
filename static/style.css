@@ -35,6 +35,10 @@ body {
     height: 100px;
     width: auto;
   }
+  .img-restaurant {
+    height:375px;
+    width: auto;
+  }
   .welcome-stuff {
     text-align: center;
     padding: 20px;
@@ -131,6 +135,15 @@ body {
   h4 {
     color: #000000;
     font-size: 20px;
+  }
+  h5 {
+    color: #000;
+    font-size: 60px;
+    text-align: center;
+  }
+  h6 {
+    color:#000;
+    font-size:30px;
   }
   .restaurant-page {
     text-align: center;
