@@ -1,8 +1,8 @@
+## Introduction
 Project name: Student-Corner
 Institution: MSUDenver/DU
 Date:10/22/2023
 
-## Introduction
 Student-Corner is a Flask web application designed as a submission to the 2023 Hack-A-Thon. Student-Corner is designed to incorporate ways to get students involved with school activities while doing the daily activity of getting food! Student-Corner does this by having reviews of local restaurants by students joined with student and school made events. 
 
 ## Requirements
