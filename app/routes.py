@@ -47,7 +47,7 @@ def users_signin():
         else:
             return '<p>Username not recognized!</p>'
     else:
-        return render_template('users_signin.html', title=app.config['USER SIGNIN'], form=form)
+        return render_template('users_signin.html', title=app.config['USER SIGNIN'], form=form,user=current_user)
 
 
 # sign-up functionality
@@ -73,7 +73,7 @@ def users_signup():
 
         return redirect(url_for('index'))
     else:
-        return render_template('users_signup.html', title=app.config['USER SIGNUP'], form=form)
+        return render_template('users_signup.html', title=app.config['USER SIGNUP'], form=form,user=current_user)
 
 
 # sign-out functionality
@@ -97,7 +97,7 @@ def create_event():
             food_id = '1234'
         )
         
-        return render_template('create_event.html', title=app.config['CREATE EVENT'], form=form)
+        return render_template('create_event.html', title=app.config['CREATE EVENT'], form=form,user=current_user)
 
 
 # End of sign in/ sign-up/ sign out 
@@ -109,7 +109,7 @@ def create_event():
 
 @app.route('/restaurant')
 def testing_restaurants():
-    return render_template('food_place.html')
+    return render_template('food_place.html',user=current_user)
 
 
 # End of user-facing routes 
@@ -128,7 +128,7 @@ def index_admin():
 #@login_required     
 def list_users(): 
     users = User.query.all()
-    return render_template('users.html', users=users)
+    return render_template('users.html', users=users,user=current_user)
     
 
 # End of admin-facing routes 
