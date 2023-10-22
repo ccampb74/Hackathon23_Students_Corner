@@ -83,21 +83,7 @@ def users_signout():
     return redirect(url_for('index'))
 
 
-# new event
-@app.route('/users/newevent', methods=['GET', 'POST'])
-@login_required
-def create_event():
-    form= EventCreationForm()
-    if form.validate_on_submit():
-        new_event = Event(
-            date = form.date.data,
-            desc = form.desc.data,
-            rsvp = 1,
-            user_id = current_user.id,
-            food_id = '1234'
-        )
-        
-        return render_template('create_event.html', title=app.config['CREATE EVENT'], form=form,user=current_user)
+
 
 
 # End of sign in/ sign-up/ sign out 
@@ -110,6 +96,62 @@ def create_event():
 @app.route('/restaurant')
 def testing_restaurants():
     return render_template('food_place.html',user=current_user)
+
+@app.route('/displayreview', methods=['GET'])
+def display_review():
+    show_review = Review.query.all()
+    return render_template('display_review.html', show=show_review)
+
+
+@app.route('/testreview', methods=['GET', 'POST'])
+def review():
+    form = ReviewForm()
+    
+    if form.validate_on_submit():
+        print('in if')
+        test_review = Review(
+                    rating=form.rating.data,
+                    comments=form.comments.data,
+                    user=form.user_id.data
+                )
+        
+        db.session.add(test_review)
+        db.session.commit()
+
+        return redirect(url_for('display_review'))
+    else:
+        print('in else')
+        return render_template('testreview.html', title=app.config['TEST_REVIEW'], form=form, user=current_user) 
+    
+# new event
+@app.route('/users/newevent', methods=['GET', 'POST'])
+@login_required
+def create_event():
+    form= EventCreationForm()
+    if form.validate_on_submit():
+        if not db.session.query(Event).order_by(Event.id.desc()).first():
+                newid = 1
+        else:
+                last_event = db.session.query(Event).order_by(Event.id.desc()).first()
+                print ("aaaaa", last_event)
+                newid = int(last_event.id) + 1
+                print ("blah", newid)
+
+        new_event = Event(
+            id= newid,
+            date = form.date.data,
+            desc = form.desc.data,
+            rsvp = 1,
+            user_id = current_user.id,
+            food_id = '1111'
+        )
+
+        db.session.add(new_event)
+        db.session.commit()
+
+        return redirect(url_for('list_events'))
+    else:   
+        return render_template('create_event.html', form=form, user=current_user)
 
 # End of user-facing routes 
 ###########################################################################################################
@@ -143,7 +185,7 @@ def restaurant_create():
 
         return redirect(url_for('index_admin'))
     else:
-        return render_template('restaurant_create.html',form=form,user=current_user)
+        return render_template('restaurant_create.html',form=form, user=current_user)
     
 # restaurant edit
 @app.route('/indexadmin/restaurant/<id>/edit', methods=['GET', 'POST'])
@@ -177,7 +219,13 @@ def restaurant_delete(id):
 #@login_required     
 def list_users(): 
     users = User.query.all()
-    return render_template('users.html',users=users,user=current_user)
+    return render_template('users.html', users=users, user=current_user)
+
+@app.route('/events')
+#@login_required     
+def list_events(): 
+    events= Event.query.filter_by(food_id='1111').all()
+    return render_template('events.html', events=events, user=current_user)
     
 
 # End of admin-facing routes 

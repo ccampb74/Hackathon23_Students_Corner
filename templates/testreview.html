@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block main %}
+
+<form action="" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <table>
+        <tr>
+            <th>Ratings</th>
+            <th>Comments</th>
+        </tr>
+        <tr>
+                    <td>{{ form.rating }}</td>
+                    <td>{{ form.comments.label }} {{ form.comments(size=10) }}</td>
+                {{ form.submit() }}
+         </tr>
+    </table>
+</form>
+    <p />
+    <button type="button" class="button" onclick=simple_action("{{ url_for('users_signout') }}")>Sign Out</button>
+
+    <script type="text/javascript">
+        function simple_action(target) {
+            window.location = target
+        }
+    </script>
+
+{% endblock %}

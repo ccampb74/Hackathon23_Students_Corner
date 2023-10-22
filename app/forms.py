@@ -25,6 +25,7 @@ class SignInForm(FlaskForm):
 class EventCreationForm(FlaskForm):
     date = StringField("Date",validators=[DataRequired()])
     desc = StringField("Description of Event",validators=[DataRequired()])
+    submit = SubmitField('Confirm')
 
 class ReviewForm(FlaskForm):
     rating = IntegerField('Rating',validators=[DataRequired()])
