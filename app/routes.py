@@ -23,7 +23,9 @@ def index():
     list_events= db.session.query(Event).order_by(Event.date).filter(Event.date >= todays_date).limit(5).all()
     print (list_events)
 
-    return render_template('index.html',user=current_user, five_events=list_events)
+    list_reviews = db.session.query(Review).order_by(Review.date.desc()).limit(5).all()
+
+    return render_template('index.html',user=current_user, five_events=list_events, five_reviews= list_reviews)
 
 
 ###########################################################################################################
@@ -202,6 +204,13 @@ def event_page(id):
         event_user = event.user_id
         print (event_user)              # this iterates through the restaurant and gets to the events object
     return render_template('event_page.html',user=current_user,events=events, eventfood=restaurant, eventuser=event_user,id=id)
+
+# @app.route('/event/rsvp/<id>', methods=['GET', 'POST'])
+# def rsvp(id):
+#     rsvps=Event.query.filter_by(id=id).first()
+#     rsvps=rsvps+1
+#     db.session.commit()
+#     return redirect(url_for('event_page', id=id))
 # End of user-facing routes 
 ###########################################################################################################
 
