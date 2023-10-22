@@ -19,6 +19,12 @@ During this project the following were used:
 - SQLAlchemy 
 - Jninja
 - bcrypt
+- blinker
+- click
+- itsdangerous
+- MarkupSafe
+- typing_extensions
+- Werkzeug
 
 ## Installation
 
