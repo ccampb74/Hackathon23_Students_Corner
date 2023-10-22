@@ -3,13 +3,13 @@
 <div class="d-flex justify-content-center">
     <div class="box">
         <table>
-        <tr>
-            <th>Location:</th>
-            <th>Date</th>
-            <th>Desc</th>
-            <th>ID</th>
-            
-        </tr>
+            <tr>
+                <th>Location:</th>
+                <th>Date</th>
+                <th>Desc</th>
+                <th>ID</th>
+                
+            </tr>
         {% for event in events %}
         {% if loop.index % 2 == 0 %}
         <tr class="even_row">

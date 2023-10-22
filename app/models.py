@@ -42,6 +42,7 @@ class Event(db.Model):
 
 class Review(db.Model):
     __tablename__= 'reviews'
+    date = db.Column(db.String)
     food_id = db.Column(db.String, db.ForeignKey("foods.id"))
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer)
