@@ -6,7 +6,7 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from app import app, db, load_user
 from app.models import User, Event, Review, Food
-from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm
+from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, FoodCreate, FoodEdit
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
@@ -111,7 +111,6 @@ def create_event():
 def testing_restaurants():
     return render_template('food_place.html',user=current_user)
 
-
 # End of user-facing routes 
 ###########################################################################################################
 
@@ -119,11 +118,60 @@ def testing_restaurants():
 ###########################################################################################################
 # Start of admin-facing routes
 
-
+# admin home page
 @app.route('/indexadmin')
 def index_admin():
-    return render_template('index_admin.html', user=current_user)
+    foods = Food.query.all()
+    return render_template('index_admin.html', user=current_user, foods=foods)
 
+
+# restaurant creation page
+@app.route('/indexadmin/restaurant/create', methods=['GET', 'POST'])
+def restaurant_create():
+    form = FoodCreate()
+    if form.validate_on_submit():
+
+        new_restaurant = Food(
+            id=form.id.data,
+            name=form.name.data,
+            location=form.location.data,
+        )
+
+        db.session.add(new_restaurant)
+        db.session.commit()
+
+        return redirect(url_for('index_admin'))
+    else:
+        return render_template('restaurant_create.html',form=form,user=current_user)
+    
+# restaurant edit
+@app.route('/indexadmin/restaurant/<id>/edit', methods=['GET', 'POST'])
+@login_required
+def restaurant_edit(id):
+    restaurant_to_edit = db.session.query(Food).get(id)
+    form = FoodEdit(obj=restaurant_to_edit)
+
+    if form.validate_on_submit():
+        form.populate_obj(restaurant_to_edit)
+        db.session.commit()
+
+        return redirect(url_for('index_admin'))
+    else:
+        return render_template('restaurant_create.html', form=form, id=restaurant_to_edit, user=current_user)
+
+
+# restaurant deletion
+@app.route('/indexadmin/restaurant/<id>/delete', methods=['GET', 'POST'])
+@login_required
+def restaurant_delete(id):
+    restaurant_to_delete = db.session.query(Food).filter(Food.id == id).one()
+
+    db.session.delete(restaurant_to_delete)
+    db.session.commit()
+
+    return redirect(url_for('index_admin'))
+
+# users listing page
 @app.route('/users')
 #@login_required     
 def list_users(): 
