@@ -5,14 +5,16 @@
             <th>Ratings</th>
             <th>Comments</th>
         </tr>
-        {% for test in form %}
+        {% for review in show %}
             {% if loop.index % 2 == 0 %}
                 <tr class="even_row">
             {% else %}
                 <tr class="odd_row">
             {% endif %}
-                    <td>{{ form.rating }}</td>
-                    <td>{{ form.commments }}</td>
+                    <td>{{ review.id }}</td>
+                    <td>{{ review.food }}</td>
+                    <td>{{ review.rating }}</td>
+                    <td>{{ review.commments }}</td>
                 </tr>
         {% endfor %}
     </table>

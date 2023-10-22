@@ -102,26 +102,32 @@ def users_signout():
 # Start of user-facing routes
 
 @app.route('/restaurant')
-def testing_restaurants():
-    restaurants = Food.query.all()
-    return render_template('food_place.html',user=current_user, restaurants=restaurants)
+def restaurant():
+    return render_template('restaurant_page.html',user=current_user)
 
-@app.route('/displayreview', methods=['GET'])
+@app.route('/displayreview', methods=['GET','POST'])
 def display_review():
     show_review = Review.query.all()
-    return render_template('display_review.html', show=show_review)
+    print("show review!!!!!!!!1",show_review)
+    return render_template('display_review.html',show=show_review,user=current_user)
 
 
 @app.route('/testreview', methods=['GET', 'POST'])
 def review():
     form = ReviewForm()
-    
     if form.validate_on_submit():
-        print('in if')
+        if not db.session.query(Review).order_by(Review.id.desc()).first():
+                newid = 1
+        else:
+                last_review = db.session.query(Review).order_by(Review.id.desc()).first()
+                newid = int(last_review.id) + 1
+
         test_review = Review(
+                    id = newid,
+                    food_id = 'test restaurant',
                     rating=form.rating.data,
                     comments=form.comments.data,
-                    user=form.user_id.data
+                    user_id =current_user.id
                 )
         
         db.session.add(test_review)
@@ -130,7 +136,7 @@ def review():
         return redirect(url_for('display_review'))
     else:
         print('in else')
-        return render_template('testreview.html', title=app.config['TEST_REVIEW'], form=form, user=current_user) 
+        return render_template('testreview.html', form=form, user=current_user)
     
 # new event
 @app.route('/users/newevent', methods=['GET', 'POST'])
