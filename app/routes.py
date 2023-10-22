@@ -120,11 +120,15 @@ def testing_restaurants():
 # Start of admin-facing routes
 
 
+@app.route('/indexadmin')
+def index_admin():
+    return render_template('index_admin.html', user=current_user)
+
 @app.route('/users')
 #@login_required     
 def list_users(): 
     users = User.query.all()
-    return render_template('users.html', users=users, user=current_user)
+    return render_template('users.html', users=users)
     
 
 # End of admin-facing routes 

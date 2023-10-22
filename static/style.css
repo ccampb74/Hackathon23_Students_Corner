@@ -107,6 +107,9 @@ body {
     color: #000000;
     margin-left: 20px;
   }
+  h3 {
+    color: #fff;
+  }
   .restaurant-page {
     text-align: center;
   }

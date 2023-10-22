@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block main %}
+{% if user.id=='admin' %}
+        <form action="" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            <p>{{ form.id.label }} <br> {{ form.id(size=10) }}</p>
+            <p>{{ form.name.label }} <br> {{ form.name(size=10) }}</p>
+            <p>{{ form.location.label }} <br> {{form.location(size=50)}}</p>
+        <p>{{ form.submit() }}
+        <button type="button" class="button" onclick=confirmed_action("{{ url_for('catalog_admin') }}")>Back to Catalog</button>
+        <button type="button" class="button_back" onclick=simple_action("{{ url_for('users_signout') }}")>Sign Out</button>
+        </p>
+        </form>
+        <script type="text/javascript">
+            function simple_action(target) {
+                window.location = target
+            }
+            function confirmed_action(target) {
+                if (confirm('Are you sure you want to leave without saving changes?')) {
+                    window.location = target
+                }
+            }
+        </script>
+
+{% else %}
+
+<p />
+Not Authorized
+<p />
+<button type="button" class="button" onclick=simple_action("{{ url_for('catalog') }}")>Back to Catalog</button>
+<script type="text/javascript">
+    function simple_action(target) {
+        window.location = target
+    }
+</script>
+{% endif %}
+{% endblock %}
