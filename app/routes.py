@@ -6,7 +6,7 @@ Description: Student-made website for students containing student-crowdsourced i
 
 from app import app, db, load_user
 from app.models import User, Event, Review, Food
-from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, FoodCreate, FoodEdit, EventRSVPForm
+from app.forms import SignUpForm, SignInForm, EventCreationForm, ReviewForm, FoodCreate, FoodEdit
 from flask import render_template, redirect, url_for, request, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
@@ -154,6 +154,8 @@ def display_review():
 @app.route('/users/newevent', methods=['GET', 'POST'])
 @login_required
 def create_event():
+    foods = Food.query.all()
+
     form= EventCreationForm()
     if form.validate_on_submit():
         if not db.session.query(Event).order_by(Event.id.desc()).first():
@@ -165,12 +167,11 @@ def create_event():
                 print ("blah", newid)
 
         new_event = Event(
+            food_id = form.food_id.data,
             id= newid,
             date = form.date.data,
             desc = form.desc.data,
-            rsvp = 1,
-            user_id = current_user.id,
-            food_id = '1'
+            user_id = current_user.id
         )
 
         db.session.add(new_event)
@@ -178,7 +179,7 @@ def create_event():
 
         return redirect(url_for('list_events'))
     else:   
-        return render_template('create_event.html', form=form, user=current_user)
+        return render_template('create_event.html', form=form, user=current_user,restaurants=foods)
     
 
 # event specific page

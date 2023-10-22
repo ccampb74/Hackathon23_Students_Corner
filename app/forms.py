@@ -25,13 +25,7 @@ class SignInForm(FlaskForm):
 class EventCreationForm(FlaskForm):
     date = DateField('Event Date', validators=[DataRequired()])
     desc = StringField("Description of Event",validators=[DataRequired()])
-    rsvp = StringField('RSVP',validators=[Optional()])
-    submit = SubmitField('Confirm')
-
-class EventRSVPForm(FlaskForm):
-    date = DateField('Event Date', validators=[DataRequired()])
-    desc = StringField("Description of Event",validators=[DataRequired()])
-    rsvp = StringField('RSVP',validators=[Optional()])
+    food_id = StringField('Restaurant',validators=[DataRequired()])
     submit = SubmitField('Confirm')
 
 class ReviewForm(FlaskForm):

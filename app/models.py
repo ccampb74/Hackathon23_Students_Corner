@@ -35,7 +35,6 @@ class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String)
     desc = db.Column(db.String)
-    rsvp = db.Column(db.Integer)
     user_id= db.Column(db.String, db.ForeignKey("users.id"))
     user=db.relationship("User", back_populates="events")
     food_= db.relationship("Food")
